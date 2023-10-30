@@ -31,3 +31,38 @@
 <!-- custom js -->
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>
+
+
+
+{{--<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+{{--Display Error --}}
+<script>
+    @if(Session::has('message'))
+    var type = "{{Session::get('alert-type','info')}}";
+    switch (type){
+        case 'info':
+            toastr.info("{{Session::get('message')}}");
+            break;
+        case 'success':
+            toastr.success("{{Session::get('message')}}");
+            break;
+        case 'warning':
+            toastr.warning("{{Session::get('message')}}");
+            break;
+        case 'error':
+            toastr.error("{{Session::get('message')}}");
+            break;
+    }
+    @endif
+
+</script>
+
+
+
+
+
+
+

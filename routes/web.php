@@ -36,3 +36,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('invoices', InvoicesController::class);
 Route::resource('sections', SectionController::class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

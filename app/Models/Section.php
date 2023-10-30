@@ -10,5 +10,6 @@ class Section extends Model
     use HasFactory;
 
     protected $fillable=['section_name' , 'description' , 'Created_by'];
+    public $timestamps = true;
 
 }
