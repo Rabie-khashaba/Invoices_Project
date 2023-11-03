@@ -87,6 +87,7 @@
                             <div class="col">
                                 <label for="inputName" class="control-label">المنتج</label>
                                 <select id="product" name="product" class="form-control">
+
                                 </select>
                             </div>
 
@@ -224,8 +225,7 @@
                         success: function(data) {
                             $('select[name="product"]').empty();
                             $.each(data, function(key, value) {
-                                $('select[name="product"]').append('<option value="' +
-                                    value + '">' + value + '</option>');
+                                $('select[name="product"]').append('<option value="' + value + '">' + value + '</option>');
                             });
                         },
                     });

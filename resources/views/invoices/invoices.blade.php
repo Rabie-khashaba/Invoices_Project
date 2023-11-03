@@ -32,11 +32,10 @@
             <div class="col-xl-12">
                 <div class="card mg-b-20">
                     <div class="card-header pb-0">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Bordered Table</h4>
-                            <i class="mdi mdi-dots-horizontal text-gray"></i>
-                        </div>
-                        <p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
+
+                        <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                                class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a>
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -59,23 +58,36 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                    <td>$320,800</td>
-                                </tr>
+                                @foreach($invoices as $invoice)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$invoice->invoice_number}}</td>
+                                        <td>{{$invoice->invoice_Date}}</td>
+                                        <td>{{$invoice->Due_date}}</td>
+                                        <td>{{$invoice->product}}</td>
+                                        <td>
+                                            <a href="{{url('invoicesDetails',$invoice->id)}}">{{$invoice->section->section_name}}</a>
+                                        </td>
+                                        <td>{{$invoice->Discount}}</td>
+                                        <td>{{$invoice->Rate_VAT}}</td>
+                                        <td>{{$invoice->Value_VAT}}</td>
+                                        <td>{{$invoice->Total}}</td>
+                                        <td>
 
+                                            @if ($invoice->Value_Status == 1)
+                                                <span class="text-success">{{ $invoice->Status }}</span>
+                                            @elseif($invoice->Value_Status == 2)
+                                                <span class="text-danger">{{ $invoice->Status }}</span>
+                                            @else
+                                                <span class="text-warning">{{ $invoice->Status }}</span>
+                                            @endif
 
+                                        </td>
+                                        <td>{{$invoice->note}}</td>
+
+                                    </tr>
+
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
