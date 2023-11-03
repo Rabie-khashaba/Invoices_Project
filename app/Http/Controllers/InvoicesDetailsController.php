@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
+use App\Models\Invoice_attachments;
 use App\Models\Invoices_details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class InvoicesDetailsController extends Controller
 {
@@ -44,7 +48,11 @@ class InvoicesDetailsController extends Controller
      */
     public function edit($id)
     {
-        return $id;
+        $invoices = Invoice::where('id',$id)->first();   // first --> لان هجيب صف واحد فقط
+        $details  = invoices_Details::where('id_Invoice',$id)->get();  // git --> invoices_Details لان احتمال يكون  هناك اكتر من
+        $attachments  = Invoice_attachments::where('invoice_id',$id)->get();
+
+        return view('invoices.details_invoice',compact('invoices','details','attachments'));
     }
 
     /**
@@ -55,11 +63,33 @@ class InvoicesDetailsController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Invoices_details $invoices_details)
+
+
+    public function destroy(Request $request)
     {
-        //
+        //return $request;
+        $invoices = Invoice_attachments::findOrFail($request->id_file);
+        //return $invoices;
+        $invoices->delete();
+        Storage::disk('public_uploads')->delete($request->invoice_number.'/'.$request->file_name);
+        $notification = array(
+            'message' => 'Attachment deleted successfully',
+            'alert-type'=> 'error',
+        );
+        return redirect()->route('invoices.index')->with($notification);
     }
+
+    public function get_file($invoice_number,$file_name)
+
+    {
+        return response()->download(public_path('Attachments'.'/'.$invoice_number.'/'.$file_name));
+    }
+
+
+    public function open_file($invoice_number,$file_name)
+    {
+        return response()->file(public_path('Attachments'.'/'.$invoice_number.'/'.$file_name));
+    }
+
+
 }

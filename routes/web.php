@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
@@ -36,7 +37,13 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('invoices', InvoicesController::class);
-Route::get('invoicesDetails/{id}', [InvoicesDetailsController::class,'edit']);
+Route::get('invoicesDetails/{id}', [InvoicesDetailsController::class,'edit'])->name('invoicesDetails');
+Route::get('download/{invoice_number}/{file_name}', [InvoicesDetailsController::class,'get_file']);
+Route::get('View_file/{invoice_number}/{file_name}',[InvoicesDetailsController::class,'open_file']);
+Route::post('delete_file',[InvoicesDetailsController::class,'destroy'])->name('delete_file');
+
+//////////
+Route::resource('InvoiceAttachments', InvoiceAttachmentsController::class);
 
 Route::resource('sections', SectionController::class);
 Route::get('section/{id}',[InvoicesController::class , 'getProducts']);
