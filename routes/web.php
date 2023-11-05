@@ -37,18 +37,22 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('invoices', InvoicesController::class);
+Route::resource('InvoiceAttachments', InvoiceAttachmentsController::class);
+Route::resource('sections', SectionController::class);
+Route::resource('products', ProductController::class);
+
+Route::get('section/{id}',[InvoicesController::class , 'getProducts']);
 Route::get('invoicesDetails/{id}', [InvoicesDetailsController::class,'edit'])->name('invoicesDetails');
 Route::get('download/{invoice_number}/{file_name}', [InvoicesDetailsController::class,'get_file']);
 Route::get('View_file/{invoice_number}/{file_name}',[InvoicesDetailsController::class,'open_file']);
 Route::post('delete_file',[InvoicesDetailsController::class,'destroy'])->name('delete_file');
 
-//////////
-Route::resource('InvoiceAttachments', InvoiceAttachmentsController::class);
+Route::get('edit_invoice/{id}',[InvoicesController::class , 'edit']);
+Route::post('/InvoiceAttachments',[InvoiceAttachmentsController::class , 'store']);
 
-Route::resource('sections', SectionController::class);
-Route::get('section/{id}',[InvoicesController::class , 'getProducts']);
 
-Route::resource('products', ProductController::class);
+
+
 Route::get('/{page}', [AdminController::class,'index']);
 
 

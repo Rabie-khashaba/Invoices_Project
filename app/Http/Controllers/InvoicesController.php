@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class InvoicesController extends Controller
 {
+
     public function index()
     {
         $invoices = invoice::all();
@@ -101,14 +102,60 @@ class InvoicesController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        //return $id;
+        $invoices = Invoice::findOrFail($id);
+        $sections = Section::all();
+        //return $sections;
+        return view('invoices.edit_invoice',compact('invoices','sections'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+
+        DB::beginTransaction();
+        try {
+            $invoices = Invoice::findOrFail($request->invoice_id);
+            $invoices->update([
+                'invoice_number' => $request->invoice_number,
+                'invoice_Date' => $request->invoice_Date,
+                'Due_date' => $request->Due_date,
+                'product' => $request->product,
+                'section_id' => $request->Section,
+                'Amount_collection' => $request->Amount_collection,
+                'Amount_Commission' => $request->Amount_Commission,
+                'Discount' => $request->Discount,
+                'Value_VAT' => $request->Value_VAT,
+                'Rate_VAT' => $request->Rate_VAT,
+                'Total' => $request->Total,
+                'note' => $request->note,
+            ]);
+
+            $invoicesDetails = Invoices_details::where('id_Invoice',$request->invoice_id)->first();
+            $invoicesDetails->update([
+               'id_Invoice'=>$request->invoice_id,
+               'invoice_number'=>$request->invoice_number,
+               'product'=>$request->product,
+               'Section'=>$request->Section,
+               'Status' => 'غير مدفوعة',
+               'Value_Status' => 2,
+               'note' => $request->note,
+               'user' => (Auth::user()->name),
+            ]);
+
+            DB::commit();
+            $notification = array(
+                'message' => 'invoices Updated successfully',
+                'alert-type'=> 'info',
+            );
+            return redirect()->route('invoices.index')->with($notification);
+
+        }catch (\Exception $e){
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
     }
 
     public function destroy(string $id)
