@@ -51,8 +51,6 @@ Route::get('edit_invoice/{id}',[InvoicesController::class , 'edit']);
 Route::post('/InvoiceAttachments',[InvoiceAttachmentsController::class , 'store']);
 
 
-
-
 Route::get('/{page}', [AdminController::class,'index']);
 
 

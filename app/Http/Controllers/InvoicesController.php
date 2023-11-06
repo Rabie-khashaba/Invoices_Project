@@ -86,11 +86,14 @@ class InvoicesController extends Controller
 
 
             DB::commit();
-            $notification = array(
-                'message' => 'invoices Saved successfully',
-                'alert-type'=> 'success',
-            );
-            return redirect()->route('invoices.index')->with($notification);
+//            $notification = array(
+//                'message' => 'invoices Saved successfully',
+//                'alert-type'=> 'success',
+//            );
+//            return redirect()->route('invoices.index')->with($notification);
+
+            session()->flash('Store_invoice');
+            return redirect('/invoices');
 
         }catch (\Exception $e){
             DB::rollback();
@@ -163,7 +166,7 @@ class InvoicesController extends Controller
     {
         $invoice = Invoice::where('id',$request->invoice_id)->first();
         //return $invoice;
-        $attachmentDetails = Invoice_attachments::where('invoice_id',$request->invoice_id)->get();
+        $attachmentDetails = Invoice_attachments::where('invoice_id',$request->invoice_id)->first();
         //return $attachmentDetails;
 
 
