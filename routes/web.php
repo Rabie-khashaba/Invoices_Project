@@ -52,7 +52,11 @@ Route::post('/InvoiceAttachments',[InvoiceAttachmentsController::class , 'store'
 Route::get('/Status_show/{id}', [InvoicesController::class , 'show'])->name('Status_show');
 Route::post('/Status_Update/{id}', [InvoicesController::class , 'Status_Update'])->name('Status_Update');
 
+Route::get('Invoice_Paid', [InvoicesController::class , 'Invoice_Paid']);
 
+Route::get('Invoice_UnPaid', [InvoicesController::class , 'Invoice_UnPaid']);
+
+Route::get('Invoice_Partial', [InvoicesController::class , 'Invoice_Partial']);
 
 Route::get('/{page}', [AdminController::class,'index']);
 
