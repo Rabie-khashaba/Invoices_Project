@@ -60,6 +60,8 @@ Route::get('Invoice_Partial', [InvoicesController::class , 'Invoice_Partial']);
 
 Route::resource('Archive', ArchiveController::class);
 
+Route::get('Print_invoice/{id}', [InvoicesController::class , 'Print_invoice']);
+
 Route::get('/{page}', [AdminController::class,'index']);
 
 

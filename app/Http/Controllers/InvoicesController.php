@@ -267,4 +267,12 @@ class InvoicesController extends Controller
         return view('invoices.invoices_Partial',compact('invoices'));
     }
 
+
+
+    public function Print_invoice($id){
+        $invoices = Invoice::where('id',$id)->first();
+       // return $invoices;
+        return view('invoices.Print_invoice',compact('invoices'));
+    }
+
 }
