@@ -41,6 +41,18 @@
         </script>
     @endif
 
+    @if (session()->has('Status_Update'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم تعديل حاله الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+
+        </script>
+    @endif
+
     <!-- row -->
     <div class="row">
 
@@ -119,7 +131,7 @@
 
 {{--                                                    @can('تغير حالة الدفع')--}}
                                                         <a class="dropdown-item"
-{{--                                                           href="{{ URL::route('Status_show', [$invoice->id]) }}" --}}><i
+                                                           href="{{ URL::route('Status_show', [$invoice->id]) }}" ><i
                                                                 class=" text-success fas                                                                                                                                                                                                                                                                                                                                                                                                                                         fa-money-bill"></i>&nbsp;&nbsp;تغير
                                                             حالة الدفع</a>
 {{--                                                    @endcan--}}

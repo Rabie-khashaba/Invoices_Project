@@ -84,7 +84,6 @@ class InvoicesController extends Controller
                 $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
             }
 
-
             DB::commit();
 //            $notification = array(
 //                'message' => 'invoices Saved successfully',
@@ -101,9 +100,61 @@ class InvoicesController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        //$invoices = Invoice::find($id);
+        $invoices = Invoice::where('id',$id)->first();
+        return view('invoices.status_update',compact('invoices'));
+    }
+
+    public function Status_Update($id,Request $request){
+        //return $request;
+        $invoices = Invoice::findOrFail($id);
+        //return $invoices;
+
+        if($request->Status == 'مدفوعة'){
+
+            $invoices->update([
+                'Value_Status'=>1,
+                'Status'=>$request->Status,
+                'Payment_Date'=>$request->Payment_Date
+            ]);
+
+            Invoices_details::create([
+                'id_Invoice' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'Section' => $request->Section,
+                'Status' => 'مدفوعة',
+                'Value_Status' => 1,
+                'Payment_Date'=>$request->Payment_Date,
+                'note' => $request->note,
+                'user' => (Auth::user()->name),
+            ]);
+
+        }else{
+
+            $invoices->update([
+                'Value_Status'=>3,
+                'Status'=>$request->Status,
+                'Payment_Date'=>$request->Payment_Date
+            ]);
+
+            Invoices_details::create([
+                'id_Invoice' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'Section' => $request->Section,
+                'Status' => 'مدفوعة جزئيا',
+                'Value_Status' => 3,
+                'note' => $request->note,
+                'user' => (Auth::user()->name),
+            ]);
+        }
+
+        session()->flash('Status_Update');
+        return redirect('/invoices');
+
     }
 
     public function edit($id)
