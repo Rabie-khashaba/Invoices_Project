@@ -53,6 +53,31 @@
         </script>
     @endif
 
+    @if (session()->has('restore_invoice'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم الغاء أرشفة الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+
+        </script>
+    @endif
+
+
+    @if (session()->has('destroy_invoice'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم حذف الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+
+        </script>
+    @endif
+
     <!-- row -->
     <div class="row">
 

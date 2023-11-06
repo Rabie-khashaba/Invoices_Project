@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\InvoicesDetailsController;
@@ -53,10 +54,11 @@ Route::get('/Status_show/{id}', [InvoicesController::class , 'show'])->name('Sta
 Route::post('/Status_Update/{id}', [InvoicesController::class , 'Status_Update'])->name('Status_Update');
 
 Route::get('Invoice_Paid', [InvoicesController::class , 'Invoice_Paid']);
-
 Route::get('Invoice_UnPaid', [InvoicesController::class , 'Invoice_UnPaid']);
-
 Route::get('Invoice_Partial', [InvoicesController::class , 'Invoice_Partial']);
+
+
+Route::resource('Archive', ArchiveController::class);
 
 Route::get('/{page}', [AdminController::class,'index']);
 

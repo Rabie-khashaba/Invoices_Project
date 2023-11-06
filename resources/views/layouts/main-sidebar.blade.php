@@ -32,6 +32,7 @@
 							<li><a class="slide-item" href="{{ url('/' . $page='Invoice_Paid') }}">الفواتير المدفوعه</a></li>
 							<li><a class="slide-item" href="{{ url('/' . $page='Invoice_UnPaid') }}">الفواتير الغير مدفوعه</a></li>
 							<li><a class="slide-item" href="{{ url('/' . $page='Invoice_Partial') }}">الفواتير المدفوعه جزئيا</a></li>
+							<li><a class="slide-item" href="{{ url('/' . $page='Archive') }}">ارشفه الفواتير</a></li>
 						</ul>
 					</li>
 					<li class="side-item side-item-category">التقارير</li>
