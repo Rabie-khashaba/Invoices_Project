@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "4.2",
         "league/flysystem": "3.18",
+        "maatwebsite/excel": "*",
         "spatie/flysystem-dropbox": "^3.0",
         "yoeunes/toastr": "^2.3"
     },
