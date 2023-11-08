@@ -6,9 +6,12 @@ use App\Models\invoice;
 use App\Models\Invoice_attachments;
 use App\Models\Invoices_details;
 use App\Models\Section;
+use App\Models\User;
+use App\Notifications\AddInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
@@ -29,8 +32,8 @@ class InvoicesController extends Controller
     public function store(Request $request)
     {
 
-        DB::beginTransaction();
-        try {
+        //DB::beginTransaction();
+
 
             //main invoices Table
             Invoice::create([
@@ -84,20 +87,16 @@ class InvoicesController extends Controller
                 $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
             }
 
-            DB::commit();
-//            $notification = array(
-//                'message' => 'invoices Saved successfully',
-//                'alert-type'=> 'success',
-//            );
-//            return redirect()->route('invoices.index')->with($notification);
 
-            session()->flash('Store_invoice');
-            return redirect('/invoices');
+             $user = User::first();
+             Notification::send($user, new AddInvoice($invoice_id));
 
-        }catch (\Exception $e){
-            DB::rollback();
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+            $notification = array(
+                'message' => 'invoices Saved successfully',
+                'alert-type'=> 'success',
+            );
+            return redirect()->route('invoices.index')->with($notification);
+
     }
 
     public function show($id)
