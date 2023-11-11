@@ -171,6 +171,8 @@ return [
 
         //Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //permission
+//        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -188,6 +190,8 @@ return [
         // 'Example' => App\Facades\Example::class,
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+//        'Form' => Collective\Html\FormFacade::class,
+//        'Html' => Collective\Html\HtmlFacade::class,
     ])->toArray(),
 
 ];
