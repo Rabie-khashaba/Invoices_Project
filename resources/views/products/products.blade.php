@@ -73,19 +73,19 @@
                                         <td>{{$product->description}}</td>
                                         <td>
 
-{{--                                            @can('تعديل قسم')--}}
+                                            @can('تعديل قسم')
                                             <button class="btn btn-outline-success btn-sm"
                                                     data-name="{{ $product->Product_name }}" data-pro_id="{{ $product->id }}"
                                                     data-section_name="{{ $product->section->section_name }}"
                                                     data-description="{{ $product->description }}" data-toggle="modal"
                                                     data-target="#edit_Product">تعديل</button>
-{{--                                            @endcan--}}
+                                            @endcan
 
-{{--                                            @can('حذف قسم')--}}
+                                            @can('حذف قسم')
                                             <button class="btn btn-outline-danger btn-sm " data-pro_id="{{ $product->id }}"
                                                     data-product_name="{{ $product->Product_name }}" data-toggle="modal"
                                                     data-target="#modaldemo9">حذف</button>
-{{--                                            @endcan--}}
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

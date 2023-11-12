@@ -85,6 +85,15 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
+        // Assuming $request->permission is an array of permission names or identifiers
+        $permissions = [];
+
+        foreach ($request->permission as $permissionName) {
+            $permission = Permission::where('name', $permissionName)->first();
+            if ($permission) {
+                $permissions[] = $permission;
+            }
+        }
         $role->syncPermissions($request->input('permission'));
         return redirect()->route('roles.index')
             ->with('success','Role updated successfully');
