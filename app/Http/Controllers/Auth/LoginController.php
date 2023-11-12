@@ -39,7 +39,15 @@ class LoginController extends Controller
     }
 
 
+    // to check if Status of account is Active or Not
+    protected function credentials(\Illuminate\Http\Request $request)
+    {
+        return ['email' => $request->email, 'password' => $request->password, 'status' => 'مفعل'];
+    }
 
+    // Another Way
+    // Middleware --->checkLoginDatabase
+    // in route /home   --->middleware('checkLoginDatabase');
 
 
 }

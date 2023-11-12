@@ -9,15 +9,15 @@ use Spatie\Permission\Models\Permission;
 class RoleController extends Controller
 {
 
-//    function __construct()
-//    {
-//
-//        $this->middleware('permission:عرض صلاحية', ['only' => ['index']]);
-//        $this->middleware('permission:اضافة صلاحية', ['only' => ['create','store']]);
-//        $this->middleware('permission:تعديل صلاحية', ['only' => ['edit','update']]);
-//        $this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
-//
-//    }
+    function __construct()
+    {
+
+        $this->middleware('permission:عرض صلاحية', ['only' => ['index']]);
+        $this->middleware('permission:اضافة صلاحية', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل صلاحية', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
+
+    }
 
 
     public function index(Request $request)
