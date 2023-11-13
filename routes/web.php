@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\InvoiceAttachmentsController;
+use App\Http\Controllers\Invoices_ReportController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
@@ -38,6 +39,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('checkLoginDatabase');
 
 Route::resource('invoices', InvoicesController::class);
 Route::resource('InvoiceAttachments', InvoiceAttachmentsController::class);
@@ -73,6 +75,8 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
+Route::get('invoices_report', [Invoices_ReportController::class , 'index']);
+Route::post('Search_invoices', [Invoices_ReportController::class , 'Search_invoices']);
 
 Route::get('/{page}', [AdminController::class,'index']);
 
