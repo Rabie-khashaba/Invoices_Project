@@ -64,7 +64,7 @@
                                 @endcan
 
                             @can('تقرير العملاء')
-							<li><a class="slide-item" href="{{ url('/' . $page='darggablecards') }}">تقارير العملاء</a></li>
+							<li><a class="slide-item" href="{{ url('/' . $page='customers_report') }}">تقارير العملاء</a></li>
                                 @endcan
 						</ul>
 					</li>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\CustomersReportController;
 use App\Http\Controllers\InvoiceAttachmentsController;
 use App\Http\Controllers\Invoices_ReportController;
 use App\Http\Controllers\InvoicesController;
@@ -77,6 +78,10 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::get('invoices_report', [Invoices_ReportController::class , 'index']);
 Route::post('Search_invoices', [Invoices_ReportController::class , 'Search_invoices']);
+
+
+Route::get('customers_report', [CustomersReportController::class , 'index']);
+Route::post('Search_customers', [CustomersReportController::class , 'Search_customers']);
 
 Route::get('/{page}', [AdminController::class,'index']);
 
