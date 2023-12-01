@@ -173,6 +173,9 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         //permission
 //        Spatie\Permission\PermissionServiceProvider::class,
+
+        //chartJs
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class
     ])->toArray(),
 
     /*
