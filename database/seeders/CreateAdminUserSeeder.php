@@ -1,26 +1,26 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Database\Seeder;
+namespace Database\Seeders;
 
-use Spatie\Permission\Models\Role;
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 class CreateAdminUserSeeder extends Seeder
 {
-/**
-* Run the database seeds.
-*
-* @return void
-*/
-public function run()
-{
-
-         $user = User::create([
-        'name' => 'Rabie',
-        'email' => 'Rabie@gmail.com',
-        'password' => bcrypt('11111111'),
-        'roles_name' => ["owner"],
-        'Status' => 'مفعل',
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $user = User::create([
+            'name' => 'Rabie',
+            'email' => 'Rabie@gmail.com',
+            'password' => bcrypt('11111111'),
+            'roles_name' => ["owner"],
+            'Status' => 'مفعل',
         ]);
 
         $role = Role::create(['name' => 'owner']);
@@ -32,5 +32,6 @@ public function run()
         $user->assignRole([$role->id]);
 
 
-}
+
+    }
 }
