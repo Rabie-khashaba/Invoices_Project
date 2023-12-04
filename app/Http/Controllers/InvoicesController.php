@@ -9,6 +9,7 @@ use App\Models\Invoices_details;
 use App\Models\Section;
 use App\Models\User;
 use App\Notifications\AddInvoice;
+use App\Notifications\AddInvoices_new;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -90,14 +91,22 @@ class InvoicesController extends Controller
             }
 
 
-             $user = User::first();
-             Notification::send($user, new AddInvoice($invoice_id));
 
-            $notification = array(
-                'message' => 'invoices Saved successfully',
-                'alert-type'=> 'success',
-            );
-            return redirect()->route('invoices.index')->with($notification);
+//             $user = User::first();
+//             Notification::send($user, new AddInvoice($invoice_id));
+
+
+
+                $user = User::get(); // send notification to all users
+                //$user = User::findOrFail(Auth()->user()->id); // send notification to this user only
+                $invoice = Invoice::latest()->first();
+                Notification::send($user, new AddInvoices_new($invoice));
+
+                $notification = array(
+                    'message' => 'invoices Saved successfully',
+                    'alert-type'=> 'success',
+                );
+                return redirect()->route('invoices.index')->with($notification);
 
     }
 
@@ -281,4 +290,28 @@ class InvoicesController extends Controller
     {
         return Excel::download(new InvoicesExport, 'Invoices.xlsx');
     }
+
+
+
+    public function MarkAsRead_all(){
+        //return "userUnreadNotification";
+        $userUnreadNotification = auth()->user()->unreadNotifications;
+
+        if($userUnreadNotification){
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+    }
+
+    public function unreadNotifications_count(){
+        return auth()->user()->unreadNotifications->count();
+    }
+
+    public function unreadNotifications(){
+        foreach (auth()->user()->unreadNotifications as $notification){
+            return $notification->data['title'];
+        }
+    }
+
+
 }
